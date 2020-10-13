@@ -1,18 +1,16 @@
 from django.shortcuts import render
-from . models import Blog
+from . models import Blog,Category
 
 # Create your views here.
 
-
 def createblog(request):
-	if request.method == 'Post':
-		title = request.post['title']
-		text = request.post['text']
-	cats = Blog.category
-	print("===============================")
-	print(dir(cats))
+	if request.method == 'POST':
+		title = request.POST['title']
+		text = request.POST['blog']
+		print(title,text)
 
-	return render(request, 'blog.html')
+	cats = Category.objects.all()
+	return render(request, 'blog.html', {'cats':cats})
 
 def index(request):
 	return render(request, 'index.html')
