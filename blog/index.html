@@ -81,7 +81,7 @@
   </header>
   {% if user.is_authenticated %}
 <div class="container">
-  <button type="button" class="btn btn-outline-info"  ><a href="/myblog/createblog">Blog</a></button>
+  <button type="button" class="btn btn-outline-info"><a href="/myblog/createblog">Blog</a></button>
 </div>  
 <div class="container">
   <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal">Create Blog</button>
@@ -93,6 +93,7 @@
         </div>
         <div class="modal-body">
           <form class="blog-class-elm" id="micro" name="uc">
+            % csrf_token %}
             <div class="form-group">
               <label for="recipient-name" class="col-form-label">Title:</label>
               <input type="text" class="form-control" id="myblog_title" placeholder="" name="title"> 

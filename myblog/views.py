@@ -1,13 +1,25 @@
 from django.shortcuts import render
+from django.contrib import messages
 from . models import Blog,Category
 
 # Create your views here.
 
+
 def createblog(request):
+	if request.user.is_authenticated:
+		print(request.user.username)
 	if request.method == 'POST':
 		title = request.POST['title']
 		text = request.POST['blog']
-		print(title,text)
+		category = request.POST['category']
+		messages.info(request,(title,text,category, request.user.username))
+
+		blogobj = Blog()
+		blogobj.title = title
+		blogobj.text = text
+		blogobj.category_id = category
+		blogobj.user_id = request.user.id
+		blogobj.save()
 
 	cats = Category.objects.all()
 	return render(request, 'blog.html', {'cats':cats})
