@@ -64,7 +64,7 @@
       </div>
     </div>
   </nav>
-
+  
   <!-- Page Header -->
   <header class="masthead" style="background-image: url({% static 'img/home-bg.jpg' %})">
     <div class="overlay"></div>
@@ -79,122 +79,61 @@
       </div>
     </div>
   </header>
-  {% if user.is_authenticated %}
+{% if user.is_authenticated %}
 <div class="container">
-  <button type="button" class="btn btn-outline-info"><a href="/myblog/createblog">Blog</a></button>
+  <button type="button" class="btn btn-outline-info"
+  style="position: absolute; right:0; margin-right:15%"><a href="/myblog/createblog">Blog</a></button>
 </div>  
-<div class="container">
-  <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal">Create Blog</button>
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Write Your Blog</h5>
-        </div>
-        <div class="modal-body">
-          <form class="blog-class-elm" id="micro" name="uc">
-            % csrf_token %}
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Title:</label>
-              <input type="text" class="form-control" id="myblog_title" placeholder="" name="title"> 
-            </div>
-            <div class="form-group">
-              <label for="message-text" class="col-form-label">Blog:</label>
-              <textarea class="form-control" id="message-text" name="blog"></textarea>
-            </div>
-            <div class="form-group">
-              <div class="dropdown">
-                <button type="button" id="dropDownControl" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown">
-                  <span>Category</span>
-                </button>
-                <ul aria-labelledby="dropDownControl" class="dropdown-menu">
-                <li><a>a</a></li>
-                <li><a>a</a></li>
-                <li><a>a</a></li>
-                <li><a>a</a></li>
-                </ul>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-warning" data-dismiss="modal">Close</button>
-          <button type="submit" id="chaman" class="btn btn-outline-success">Post</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 {% endif %} 
+<br><br><br><br>
+
+
+
+
+
   <!-- Main Content -->
   <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <div class="post-preview">
-          <a href="post.html">
-            {% if user.is_authenticated %}
-            <h2 class="post-title">
-              Man must explore, and this is exploration at its greatest
-            </h2>
-            <h3 class="post-subtitle">
-              Problems look mighty small from 150 miles up
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on September 24, 2019</p>
+    
+      {% if user.is_authenticated %}
+          {% for blog in blogs %}
+        <div class="card">
+          <div class="card-header">
+            {{ blog.title }}
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p>{{ blog.text }}</p>
+              <footer class="blockquote-footer">Category:{{ blog.category.name }},<cite title="Source Title">{{ blog.user}}<hr>{{blog.creation_time}}</cite></footer>
+            </blockquote>
+          </div>
         </div>
         <hr>
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-              I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
-            </h2>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on September 18, 2019</p>
-        </div>
-        <hr>
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-              Science has not yet mastered prophecy
-            </h2>
-            <h3 class="post-subtitle">
-              We predict too much for the next year and yet far too little for the next ten.
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on August 24, 2019</p>
-        </div>
-        <hr>
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-              Failure is not an option
-            </h2>
-            <h3 class="post-subtitle">
-              Many say exploration is part of our destiny, but it’s actually our duty to future generations.
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on July 8, 2019</p>
-            {% endif %}
-        </div>
-        <hr>
+        <br>
+        {% endfor %}
+        {% endif %}
         <!-- Pager -->
-        <div class="clearfix">
-          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-        </div>
-      </div>
+      
     </div>
   </div>
 
   <hr>
-
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
   <!-- Footer -->
   <footer>
     <div class="container">
@@ -241,13 +180,7 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script>
-  $('#chaman').on('click', function(e){
-    //var abc = $('form.blog-class-elm').serialize()
-    var pqr = $('#message-text').val()
-    alert($('form.blog-class-elm').serialize())
-  })  
-</script>
-</body>
+
+</body> -->
 
 </html>

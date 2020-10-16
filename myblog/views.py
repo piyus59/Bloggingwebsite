@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from django.contrib import messages
 from . models import Blog,Category
 
@@ -20,9 +21,12 @@ def createblog(request):
 		blogobj.category_id = category
 		blogobj.user_id = request.user.id
 		blogobj.save()
+		return HttpResponseRedirect('/')
 
 	cats = Category.objects.all()
+	
 	return render(request, 'blog.html', {'cats':cats})
 
 def index(request):
-	return render(request, 'index.html')
+	blogs = Blog.objects.all()
+	return render(request, 'index.html', {'blogs':blogs})
