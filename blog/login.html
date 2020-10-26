@@ -1,39 +1,85 @@
-
+{% extends 'footer.html' %}
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Login</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Login</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+   <!-- Bootstrap core CSS -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+   
+  <!-- Custom fonts for this template -->
+  <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' %}" rel='stylesheet' type='text/css'>
+  <link href="{% static 'https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' %}" rel='stylesheet' type='text/css'>
 
-		<!--Bootsrap 4 CDN-->
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    
-		<!--Fontawesome CDN-->
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-	
-		<!--Custom styles-->
-	<link rel="stylesheet" type="text/css" media="screen" href="style.css">
-	
-	
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/clean-blog.min.css' %}" rel="stylesheet">	
 </head>
 <body>
-	<form action="login" method="post">{% csrf_token %}
-		<input type="text" name="username" placeholder="Username"><br>
-		<input type="password" name="password" placeholder="Password"><br>
-		<input type="Submit">
-	</form>
-
-	<div>
-		{% for message in messages %}
-		<h1>
-			{{message}}
-		</h1>
-		{% endfor %}
+	{% block content %}
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+          <h1 class="navbar-brand" title="Career Point University">CPU Bloggers</h1>
+          <!-- <a class="navbar-brand" href="index.html" style="color: black;">CPU Bloggers</a> -->
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+			  </li>
+			  <li class="nav-item">
+                <a class="nav-link" href="/about" >About</a>
+              </li>
+              {% if user.is_authenticated %}
+              <li class="nav-item">Hello, {{user.first_name}}</li>
+              <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="/register">Register</a>
+              </li>
+              {% endif %}
+              <li class="nav-item">
+                <a class="nav-link" href="/contact">Contact Us</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+      <header class="masthead" style="background-image: url({% static 'img/home-bg.jpg' %})">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+              <div class="site-heading">
+                <h1 style="color:cyan;">Login here.....</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+	  </header>
+	<div class="container" style="padding-right: 35%; padding-left: 35%">
+		<div class="form-group" >
+		<form action="login" method="post">{% csrf_token %}
+				<input class="form-control form-control-lg" type="text" name="username" placeholder="Username"><br>
+				<input class="form-control form-control-lg" type="password" name="password" placeholder="Password"><br>
+				<input class="btn btn-success mb-2" type="Submit" value="Login">
+		</form>
 	</div>
-
+			<div>
+				{% for message in messages %}
+				<h1>
+					{{message}}
+				</h1>
+				{% endfor %}
+			</div>
+		</div><br><br><br><br>
+		{% endblock %}
+		
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 

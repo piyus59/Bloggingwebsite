@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from . models import Blog,Category
+from django.contrib.auth.models import User, auth
 
 # Create your views here.
 
@@ -28,5 +29,13 @@ def createblog(request):
 	return render(request, 'blog.html', {'cats':cats})
 
 def index(request):
-	blogs = Blog.objects.all()
-	return render(request, 'index.html', {'blogs':blogs})
+	request_dict = request.GET
+	if request_dict.get('show_cat'):
+		shows = Category.objects.all()
+		blogs = Blog.objects.filter(category_id=request_dict.get('show_cat'))
+	else:
+		shows = Category.objects.all()
+		blogs = Blog.objects.all()
+	return render(request, 'index.html', {'blogs':blogs, 'shows':shows})
+
+

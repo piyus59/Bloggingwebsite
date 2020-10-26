@@ -5,7 +5,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Registration</title>
+    <title>ContactUs</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
    <!-- Bootstrap core CSS -->
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -19,7 +19,7 @@
   <link href="{% static 'css/clean-blog.min.css' %}" rel="stylesheet">
 </head>
 <body>
-  {% block content %}
+    {% block content %}
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container">
           <h1 class="navbar-brand" title="Career Point University">CPU Bloggers</h1>
@@ -40,14 +40,13 @@
               <li class="nav-item">Hello, {{user.first_name}}</li>
               <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
               {% else %}
-              
+              <li class="nav-item">
+                <a class="nav-link" href="/register">Register</a>
+              </li>
               <li class="nav-item">
                 <a class="nav-link" href="/login">Login</a>
               </li>
               {% endif %}
-              <li class="nav-item">
-                <a class="nav-link" href="/contact">Contact Us</a>
-              </li>
             </ul>
           </div>
         </div>
@@ -64,41 +63,9 @@
           </div>
         </div>
       </header>
-            <div class="container" style="padding-right: 20%; padding-left: 20%">
-                <form action="register" method="post">
-                    {% csrf_token %}
-                    <div class="form-group" style="padding-right: 20%; padding-left: 20%">
-                    <input class="form-control" type="text" name="first_name" placeholder="First Name" required><br>
-                    <input class="form-control" type="text" name="last_name" placeholder="Last Name" required><br>
-                    <input class="form-control" type="text" name="username" placeholder="Username" required><br>
-                    <input class="form-control" type="email" name="email" placeholder="Email" required><br>
-                    <input class="form-control" type="password" name="password1" placeholder="Password" required>
-                    <small id="passwordHelpInline" class="text-muted">
-                      Must be 8-20 characters long.
-                    </small><br><br>
-                    <input class="form-control" type="password" name="password2" placeholder="Confirm Password" required>
-                    <br>
-                    <input class="btn btn-success" type="Submit" value="Submit">
-                    </div>
-                </form>
+    <h1>ContactUs</h1>
+    <br><br><br>
+    {% endblock %}
 
-                <div>
-                    {% for message in messages %}
-                    <h1>
-                        {{message}}
-                    </h1>
-                    {% endfor %}
-                </div>
-            </div>
-                <br><br><br>
-               {% endblock %}
-
-    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-  
-    <!-- Custom scripts for this template -->
-    <script src="{% static 'js/clean-blog.min.js' %}"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  
 </body>
 </html>

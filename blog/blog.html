@@ -1,4 +1,4 @@
-
+{% extends 'footer.html' %}
 {% load static %}
 <!DOCTYPE html>
 <html>
@@ -20,35 +20,36 @@
    
 </head>
 <body>
+  {% block content %}
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand" href="index.html" style="color: black;">Start Bootstrap</a>
+      <h1 class="navbar-brand" title="Career Point University">CPU Bloggers</h1>
+      <!-- <a class="navbar-brand" href="index.html" style="color: black;">CPU Bloggers</a> -->
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        Menu
         <i class="fas fa-bars"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/" style="color: black;">Home</a>
+            <a class="nav-link" href="/" >Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="about.html" style="color: black;">About</a>
+            <a class="nav-link" href="/about" >About</a>
           </li>
 
           {% if user.is_authenticated %}
           <li class="nav-item">Hello, {{user.first_name}}</li>
+          <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
           {% else %}
-          <li class="nav-item"><a class="nav-link" href="accounts/logout" style="color: black;">Logout</a></li>
           <li class="nav-item">
-            <a class="nav-link" href="accounts/register" style="color: black;">Register</a>
+            <a class="nav-link" href="/register" >Register</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="accounts/login" style="color: black;">Login</a>
+            <a class="nav-link" href="/login">Login</a>
           </li>
           {% endif %}
           <li class="nav-item">
-            <a class="nav-link" href="contact.html" style="color: black;">Contact</a>
+            <a class="nav-link" href="/contact">Contact Us</a>
           </li>
         </ul>
       </div>
@@ -79,8 +80,8 @@
           <label for="message-text" class="col-form-label" style="font-size: 200%;">Blog:</label>
           <textarea class="form-control" id="message-text" name="blog" required></textarea>
         </div>
-        <select id="user_id_dropdown" name="category" required>
-                <option disabled selected>Categories</option>
+        <select class="btn btn-info" id="user_id_dropdown" name="category" required>
+                <option class="btn btn-info" disabled selected>Categories</option>
               {% for cat in cats %}
                 <option value="{{cat.id}}">{{cat.name}}</option>
               {% endfor %}
@@ -103,45 +104,9 @@
         <button type="submit" id="chaman" class="btn btn-outline-success" 
         style="position: absolute; right:0; margin-right:10%">Post</button>
       </div> -->
-      {% else %}
-      <h1>Please Login First!!!!</h1>
     {% endif %}
     </div><br><br><br><br><br><br><br>
-    <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-md-10 mx-auto">
-            <ul class="list-inline text-center">
-              <li class="list-inline-item">
-                <a href="#">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-            </ul>
-            <p class="copyright text-muted">Copyright &copy; Your Website 2020</p>
-          </div>
-        </div>
-      </div>
-    </footer>
+    {% endblock %}
 
       <!-- Bootstrap core JavaScript -->
   <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>

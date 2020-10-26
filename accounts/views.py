@@ -8,6 +8,10 @@ def index(request):
     return render(request, 'index.html')
 
 
+def about(request):
+    return render(request,'about.html')
+
+
 def login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -49,11 +53,14 @@ def register(request):
             messages.info(request, 'Password not matching...')
         return redirect('/')
     else:
-
+        
         return render(request, 'register.html')
 
 
 def logout(request):
     auth.logout(request)
     return redirect('/')
+
+def contact(request):
+    return render(request, 'contact.html')
 
