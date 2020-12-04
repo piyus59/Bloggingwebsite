@@ -1,8 +1,11 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib import messages
 from . models import Blog,Category
 from django.contrib.auth.models import User, auth
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 # Create your views here.
 
@@ -36,6 +39,34 @@ def index(request):
 	else:
 		shows = Category.objects.all()
 		blogs = Blog.objects.all()
-	return render(request, 'index.html', {'blogs':blogs, 'shows':shows})
+
+	# user_list = Blog.objects.all()
+	page = request.GET.get('page', 1)
+	paginator = Paginator(blogs, 2)
+
+	try:
+		Items = paginator.page(page)
+	except PageNotAnInteger:
+		Items = paginator.page(1)
+	except EmptyPage:
+		Items = paginator.page(paginator.num_pages)
+	return render(request, 'index.html', {'shows':shows, 'Items':Items})
+
+def personalblogs(request):
+	
+	blogs = Blog.objects.filter(user_id=request.user)
+	return render(request, 'personalblogs.html', {'blogs':blogs})
+
+
+def delete(request):
+    print('piuni		',request.POST['blogid'])
+    blog = get_object_or_404(Blog,id = request.POST['blogid'])
+    bloger = blog.user.username
+    print("dsdsdsd			",bloger)
+    if request.method == 'POST' and request.user.is_authenticated and request.user.username == bloger:
+	    blog.delete()
+	    messages.success(request, "Post Successfully deleted!")
+	    return HttpResponseRedirect('/myblog/personalblogs')
+    return HttpResponseRedirect(request, '/', {'blog':blog, 'bloger':bloger})
 
 

@@ -36,9 +36,15 @@
                 <a class="nav-link" href="/about" >About</a>
               </li>
               {% if user.is_authenticated %}
-              <li class="nav-item">Hello, {{user.first_name}}</li>
-              <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
-              {% else %}
+          <li style="color: cyan;" class="nav-item">Hello, {{user.first_name}}</li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/myblog/personalblogs">MyBlogs</a>
+              <a class="dropdown-item" href="logout">Logout</a>
+            </div>
+          </li>
+          {% else %}
               <li class="nav-item">
                 <a class="nav-link" href="/register">Register</a>
               </li>
@@ -56,18 +62,23 @@
           <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
               <div class="site-heading">
-                <h1 style="color:cyan;">Login here.....</h1>
+                
               </div>
             </div>
           </div>
         </div>
 	  </header>
-	<div class="container" style="padding-right: 35%; padding-left: 35%">
+	<div class="container" style="padding-right: 30%; padding-left: 30%">
 		<div class="form-group" >
 		<form action="login" method="post">{% csrf_token %}
+      <h1 style="color:darkviolet;">Login</h1><br><br>
 				<input class="form-control form-control-lg" type="text" name="username" placeholder="Username"><br>
-				<input class="form-control form-control-lg" type="password" name="password" placeholder="Password"><br>
-				<input class="btn btn-success mb-2" type="Submit" value="Login">
+        <input class="form-control form-control-lg" type="password" name="password" placeholder="Password">
+        <a style="color: cornflowerblue;" href="#">Forget Password</a><br><br>
+        <input class="btn btn-success mb-2" type="Submit" value="Login">
+        <div>
+          <p>Don't have an account?  <a style="color: blue;" href="/register">Register here</a></p>
+        </div>
 		</form>
 	</div>
 			<div>

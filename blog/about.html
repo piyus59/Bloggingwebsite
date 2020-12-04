@@ -33,9 +33,15 @@
                 <a class="nav-link" href="/">Home</a>
               </li>
               {% if user.is_authenticated %}
-              <li class="nav-item">Hello, {{user.first_name}}</li>
-              <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
-              {% else %}
+          <li style="color: black;" class="nav-item">Hello, {{user.first_name}}</li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/myblog/personalblogs">MyBlogs</a> 
+              <a class="dropdown-item" href="logout">Logout</a>
+            </div>
+          </li>
+          {% else %}
               <li class="nav-item">
                 <a class="nav-link" href="/register">Register</a>
               </li>
@@ -56,13 +62,30 @@
           <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
               <div class="site-heading">
-                <h1 style="color:cyan;">Register here.....</h1>
+                
               </div>
             </div>
           </div>
         </div>
       </header>
-    <h1>ABout</h1>
+    <div class="container">
+      <h1 style="text-align: center;">About</h1><br>
+      <div class="container-fluid">
+      <p>* Microblogging is a shorter version of blogging that allows users to write entries up to 200 characters. </p>
+      <p>* Messages can be viewed by registered users only.</p> 
+      <p>* Microblogging is concerned with thoughts from a given source and headlines of present activity.</p> 
+      <p>* Blogging is more related to larger stories, background information and research including Links.</p>
+        <p>* The User behavior mainly includes posting updates in text possibly combined with links to pictures, videos or websites.</p>
+          <p>* Microblogging is light information that you can choose to dig into if it has your immediate interest.</p>
+            <p>* It´s also a way to get an overview of what is present in your chosen network.</p>
+              <p>* Microblogging can be used in several ways, such as:</p>
+                <p>* For posting news related to company.</p>
+                  <p>* Giving feedback to customers .</p>
+                    <p>* Link to other publicity sources.</p>
+                      <p>* Realtime communication covering various events.</p>
+                    </div>
+
+    </div>
     <br><br><br>
     {% endblock %}
 

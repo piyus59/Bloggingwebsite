@@ -11,7 +11,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Clean Blog</title>
+  <title>Micro Blogging</title>
 
   <!-- Bootstrap core CSS -->
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -47,10 +47,16 @@
           <li class="nav-item">
             <a class="nav-link" href="about">About</a>
           </li>
-
+          
           {% if user.is_authenticated %}
-          <li class="nav-item">Hello, {{user.first_name}}</li>
-          <li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
+          <li style="color: black;" class="nav-item">Hello, {{user.first_name}}</li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/myblog/personalblogs">MyBlogs</a> 
+              <a class="dropdown-item" href="logout">Logout</a>
+            </div>
+          </li>
           {% else %}
           <li class="nav-item">
             <a class="nav-link" href="register">Register</a>
@@ -83,9 +89,8 @@
   </header>
 {% if user.is_authenticated %}
 <div class="container">
-  
   <div class="dropdown">
-    <button type="button" title="Filter by Category" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+    <button  type="button" title="Filter by Category" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown">
       Categories
     </button>
     <div class="dropdown-menu">
@@ -93,10 +98,9 @@
       <a value="{{show.id}}" class="dropdown-item" href="/?show_cat={{show.id}}">{{show.name}}</a>
       {% endfor %}
     </div>
-    <button type="button" title="If you want to create a blog.Click this Button!!!!" class="btn btn-outline-info"
-  style="position: absolute; right:0; margin-right:0%"><a href="/myblog/createblog">Create Blog</a></button>
-  </div> 
+  <a class="btn btn-outline-danger" title="If you want to create a blog.Click this Button!!!!" style="position: absolute; right:0; margin-right:0%" href="/myblog/createblog">Create Blog</a>
   
+  </div> 
 </div>  
 {% endif %} 
 <br><br><br><br>
@@ -109,15 +113,15 @@
   <div class="container">
     
       {% if user.is_authenticated %}
-          {% for blog in blogs %}
+          {% for item in Items %}
         <div class="card">
           <div class="card-header">
-            {{ blog.title }}
+            {{ item.title }}
           </div>
           <div class="card-body">
             <blockquote class="blockquote mb-0">
-              <p>{{ blog.text }}</p>
-              <footer class="blockquote-footer">{{ blog.user}}<br><cite title="Created Date and Time" >{{ blog.category.name }}{{blog.creation_time}}</cite></footer>
+              <p>{{ item.text }}</p>
+              <footer class="blockquote-footer">{{ item.user}}<br><cite title="Created Date and Time" >{{ item.category.name }}{{item.creation_time}}</cite></footer>
             </blockquote>
           </div>
         </div>
@@ -128,25 +132,37 @@
         <!-- Pager -->
       
     </div>
-
-  <!-- <hr>
+    {% if user.is_authenticated %}
+  {% if Items.has_other_pages %}
   <nav aria-label="Page navigation example">
-    <ul class="pagination">
+    <ul class="pagination justify-content-center">
+      {% if Items.has_previous %}
       <li class="page-item">
-        <a class="page-link" href="#" aria-label="Previous">
+        <a class="page-link" href="?page={{ Items.previous_page_number }}" aria-label="Previous">
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      
+      {% endif %}
+      {% for i in Items.paginator.page_range %}
+      {% if Items.number == i %}
+      <li class="page-item"><a class="page-link"{{ i }} >{{ i }}</a></li>
+      {% else %}
+        <li><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+      {% endfor %}
+      {% if Items.has_next %}
       <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next">
+        <a class="page-link" href="?page={{ Items.next_page_number }}" aria-label="Next">
           <span aria-hidden="true">&raquo;</span>
         </a>
       </li>
+      
+    {% endif %}
     </ul>
-  </nav> -->
+  </nav>
+  {% endif %} 
+  {% endif %}
   {% endblock %}
   
   <!-- Bootstrap core JavaScript -->
